@@ -1,0 +1,185 @@
+# SSTU-Raptor-Configs
+Raptor Engines
+
+
+Here's the config for the Raptor parts I created. These are based on the SSTU Merlin 1D engine - I went ahead and created entirely new parts in the SSTU Engines folder, so they're capable of all the SSTU clustering features. 
+
+
+Raptor Surface Config:
+@PART[*]:HAS[#engineType[SSTU-SC-ENG-Raptor-S]]:FOR[RealismOverhaulEngines]
+{
+	%category = Engine
+	@title = SSTU-SC-ENG-Raptor-S
+	%manufacturer = SpaceX
+	@description = The Raptor is an full flow staged combustion engine that burns CH4/LOX. Designed for the Interplanetary Transport System, 42 sea level optimised engines power the first stage. The Mars ship has 3 sea level engines and 6 vacuum engines. This is the sea level configuration.
+	
+	
+	%RSSROConfig = True
+	@MODULE[ModuleEngines*]
+	{
+		@minThrust = 659.4 
+		@maxThrust = 3297
+		%heatProduction = 58
+		@useEngineResponseTime = False
+		!engineAccelerationSpeed = NULL
+		@allowShutdown = True
+		%EngineType = LiquidFuel
+		@useThrustCurve = False
+		%ullage = True
+		%pressureFed = False
+		%ignitions = 5
+
+		!IGNITOR_RESOURCE,*{}
+
+		!thrustCurve,*{}
+	}
+
+	!MODULE[ModuleEngineConfigs],*{}
+
+	MODULE
+	{
+		name = ModuleEngineConfigs
+		type = ModuleEngines
+		configuration = Raptor-S
+		origMass = 1.6
+		
+		CONFIG
+		{
+			name = Raptor-S
+			maxThrust = 3297
+			minThrust = 659.4 // 20% throttle
+			heatProduction = 58
+			massMult = 1.0
+
+			PROPELLANT // Ratio = 3.8
+			{
+				name = LqdMethane
+				ratio = 0.4137
+				DrawGauge = true
+			}
+			PROPELLANT
+			{
+				name = LqdOxygen
+				ratio = 0.5863
+			}
+			atmosphereCurve
+			{
+				key = 0 361
+				key = 1 334
+			}
+			
+			%ullage = True
+			%pressureFed = False
+			%ignitions = 5
+			
+			IGNITOR_RESOURCE
+			{
+				name = ElectricCharge
+				amount = 0.5
+			}			
+		}
+	
+	}
+	@MODULE[ModuleGimbal]
+	{
+		%gimbalRange = 8 // unknown
+		%useGimbalResponseSpeed = true
+		%gimbalResponseSpeed = 16
+	}
+	!MODULE[ModuleAlternator]
+	{
+	}
+	!RESOURCE[ElectricCharge]
+	{
+	}
+}
+
+
+Raptor Vacuum Config:
+@PART[*]:HAS[#engineType[SSTU-SC-ENG-Raptor-V]]:FOR[RealismOverhaulEngines]
+{
+	%category = Engine
+	@title = SSTU-SC-ENG-Raptor-V
+	%manufacturer = SpaceX
+	@description = The Raptor is an full flow staged combustion engine that burns CH4/LOX. Designed for the Interplanetary Transport System, 42 sea level optimised engines power the first stage. The Mars ship has 3 sea level engines and 6 vacuum engines. This is the vacuum configuration.
+	
+	
+	%RSSROConfig = True
+	@MODULE[ModuleEngines*]
+	{
+		@minThrust = 700
+		@maxThrust = 3500
+		%heatProduction = 58
+		@useEngineResponseTime = False
+		!engineAccelerationSpeed = NULL
+		@allowShutdown = True
+		%EngineType = LiquidFuel
+		@useThrustCurve = False
+		%ullage = True
+		%pressureFed = False
+		%ignitions = -1
+
+		!IGNITOR_RESOURCE,*{}
+
+		!thrustCurve,*{}
+	}
+
+
+	!MODULE[ModuleEngineConfigs],*{}
+
+	MODULE
+	{
+		name = ModuleEngineConfigs
+		type = ModuleEngines
+		configuration = Raptor-S
+		origMass = 1.6
+		
+		CONFIG
+		{
+			name = Raptor-V
+			maxThrust = 3500
+			minThrust = 700 // 20% throttle
+			heatProduction = 58
+			PROPELLANT // Ratio = 3.8
+			{
+				name = LqdMethane
+				ratio = 0.4137
+				DrawGauge = true
+			}
+			PROPELLANT
+			{
+				name = LqdOxygen
+				ratio = 0.5863
+			}
+			atmosphereCurve
+			{
+				key = 0 382
+				key = 1 280
+			}
+			
+			ullage = True
+			pressureFed = False
+			ignitions = -1
+			
+			IGNITOR_RESOURCE
+			{
+				name = ElectricCharge
+				amount = 0.5
+			}
+		
+			massMult = 1.1
+		}
+	}
+	@MODULE[ModuleGimbal]
+	{
+		%gimbalRange = 8 // unknown
+		%useGimbalResponseSpeed = true
+		%gimbalResponseSpeed = 16
+	}
+	!MODULE[ModuleAlternator]
+	{
+	}
+	!RESOURCE[ElectricCharge]
+	{
+	}
+}
