@@ -2,9 +2,6 @@
 Raptor Engines
 
 
-Here's the config for the Raptor parts I created. These are based on the SSTU Merlin 1D engine - I went ahead and created entirely new parts in the SSTU Engines folder, so they're capable of all the SSTU clustering features. 
-
-
 Raptor Surface Config:
 @PART[*]:HAS[#engineType[SSTU-SC-ENG-Raptor-S]]:FOR[RealismOverhaulEngines]
 {
